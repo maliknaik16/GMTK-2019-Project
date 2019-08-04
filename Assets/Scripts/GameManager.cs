@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
+    public Animator tapAnimator;
+
     private void Start()
     {
         instance = this;
@@ -34,6 +36,8 @@ public class GameManager : MonoBehaviour
     public void NoteHit()
     {
         Debug.Log("Hit On Time");
+
+        tapAnimator.SetTrigger("OpenTap");
     }
 
     public void NoteMissed()

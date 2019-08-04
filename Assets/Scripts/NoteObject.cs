@@ -8,15 +8,20 @@ public class NoteObject : MonoBehaviour
 
     public KeyCode keyToPress;
 
+    public Animator animator;
+
     private void Update()
     {
         if (Input.GetKeyDown(keyToPress))
         {
             if (canBePressed)
             {
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
 
                 GameManager.instance.NoteHit();
+                AudioManager.instance.PlaySound(AudioManager.instance.pourBeer);
+                animator.SetTrigger("Fill");
+                AudioManager.instance.PlaySound(AudioManager.instance.gainMoney);
             }
         }
     }
