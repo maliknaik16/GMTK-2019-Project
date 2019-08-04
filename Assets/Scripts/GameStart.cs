@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameStart : MonoBehaviour
 {
 	private void Update() {
-		if(Input.anyKeyDown) {
+		if(Input.GetKeyDown(KeyCode.Space)) {
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 		}
 	}
