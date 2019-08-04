@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,16 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public Animator tapAnimator;
+
+    public GameObject hitText;
+
+    public GameObject missText;
+
+    public Transform textSpawnPos;
+
+    float cash = 0f;
+
+    public Text cashText;
 
     private void Start()
     {
@@ -31,10 +42,20 @@ public class GameManager : MonoBehaviour
                 music.Play();
             }
         }
+        ShowCash();
+    }
+
+    void ShowCash() {
+        if(cash < 0) {
+            cashText.text = "CASH: - €" + (-1f * cash);
+        }else{
+            cashText.text = "CASH: €" + cash;
+        }
     }
 
     public void NoteHit()
     {
+        ShowHitText();
         Debug.Log("Hit On Time");
 
         tapAnimator.SetTrigger("OpenTap");
@@ -42,6 +63,17 @@ public class GameManager : MonoBehaviour
 
     public void NoteMissed()
     {
+        ShowMissText();
         Debug.Log("Missed Note");
+    }
+
+    public void ShowHitText() {
+        cash += 1f;
+        Instantiate(hitText, Vector3.zero, Quaternion.identity);
+    }
+
+    public void ShowMissText() {
+        cash -= 2f;
+        Instantiate(missText, Vector3.zero, Quaternion.identity);
     }
 }

@@ -10,6 +10,10 @@ public class NoteObject : MonoBehaviour
 
     public Animator animator;
 
+    bool missed = false;
+    bool hit = false;
+    bool hitIndicator = false;
+
     private void Update()
     {
         if (Input.GetKeyDown(keyToPress))
@@ -17,12 +21,26 @@ public class NoteObject : MonoBehaviour
             if (canBePressed)
             {
                 //gameObject.SetActive(false);
+                hit = true;
+                hitIndicator = true;
 
                 GameManager.instance.NoteHit();
                 AudioManager.instance.PlaySound(AudioManager.instance.pourBeer);
                 animator.SetTrigger("Fill");
                 AudioManager.instance.PlaySound(AudioManager.instance.gainMoney);
             }
+        }
+
+        if(missed && hitIndicator == false) 
+        {
+            missed = false;
+            GameManager.instance.ShowMissText();
+        }
+
+        if(hit) 
+        {
+            hit = false;
+            GameManager.instance.ShowHitText();
         }
     }
 
@@ -39,8 +57,7 @@ public class NoteObject : MonoBehaviour
         if (collision.tag == "Activator")
         {
             canBePressed = false;
-
-            GameManager.instance.NoteMissed();
+            missed = true;
         }
     }
 }
