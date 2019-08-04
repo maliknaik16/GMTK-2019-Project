@@ -1,35 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-    }
+    public AudioSource music;
 
-    [SerializeField] private Text text; 
-    public float Score = 0;
-    public float GlobalSpeed;
+    public bool startPlaying;
+
+    public BeatScroller beatScroller;
+
+    public static GameManager instance;
 
     private void Start()
     {
-        
+        instance = this;
     }
 
-    public IEnumerator AddToScore(int value)
+    private void Update()
     {
-        for (int i = 0; i < value; i++)
+        if (!startPlaying)
         {
-            yield return new WaitForSeconds(0.001f);
-            Score++;
-            text.text = "$ " + Score;
+            if (Input.anyKeyDown)
+            {
+                startPlaying = true;
+                beatScroller.hasStarted = true;
+
+                music.Play();
+            }
         }
+    }
+
+    public void NoteHit()
+    {
+        Debug.Log("Hit On Time");
+    }
+
+    public void NoteMissed()
+    {
+        Debug.Log("Missed Note");
     }
 }
