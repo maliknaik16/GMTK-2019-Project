@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
 
     public Text cashText;
 
+    public GameObject startText;
+    public GameObject endText;
+
     private void Start()
     {
         instance = this;
@@ -34,8 +37,9 @@ public class GameManager : MonoBehaviour
     {
         if (!startPlaying)
         {
-            if (Input.anyKeyDown)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
+                startText.SetActive(false);
                 startPlaying = true;
                 beatScroller.hasStarted = true;
 

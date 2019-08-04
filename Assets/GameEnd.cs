@@ -11,9 +11,15 @@ public class GameEnd : MonoBehaviour
     {
         if (GameManager.instance.startPlaying)
         {
+
             if (!audioSource.isPlaying)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                GameManager.instance.endText.SetActive(true);
+            }
+
+            if (!audioSource.isPlaying && Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
     }
